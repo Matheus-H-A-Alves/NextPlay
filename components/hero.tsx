@@ -5,7 +5,7 @@ export default function Hero() {
         <h1 className="text-5xl sm:text-7xl font-bold mb-6 leading-tight">
           <span className="gradient-text">LEVEL UP</span>
           <br />
-          <span className="neon-text">YOUR GAME</span>
+          <span className="neon-text">NEXTSTAGE</span>
         </h1>
         <p className="text-xl text-[var(--muted-foreground)] mb-8 leading-relaxed">
           Compita em torneios, conecte-se com jogadores profissionais e domine a cena dos e-sports. Sua jornada para a grandeza começa aqui.

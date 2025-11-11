@@ -47,11 +47,11 @@ export default function Header({ onRegister, onLogin, onContact }: HeaderProps) 
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-8">
-            <button className="hover:text-[var(--primary)] transition-colors">Home</button>
-            <button onClick={onRegister} className="hover:text-[var(--primary)] transition-colors">
+            <button className="hover:text-[var(--primary)] cursor-pointer transition-colors">Home</button>
+            <button onClick={onRegister} className="hover:text-[var(--primary)] cursor-pointer transition-colors">
               Cadastro
             </button>
-            <button onClick={onContact} className="hover:text-[var(--primary)] transition-colors">
+            <button onClick={onContact} className="hover:text-[var(--primary)] cursor-pointer transition-colors">
               Contato
             </button>
             {user.nome.length > 0 ?
@@ -70,7 +70,7 @@ export default function Header({ onRegister, onLogin, onContact }: HeaderProps) 
               null
             }
             {user.nome.length == 0 ?
-              <button onClick={onLogin} className="btn-primary text-sm">
+              <button onClick={onLogin} className="btn-primary cursor-pointer text-sm">
                 Login
               </button>
               :
@@ -89,7 +89,7 @@ export default function Header({ onRegister, onLogin, onContact }: HeaderProps) 
           </nav>
 
           {/* Mobile Menu Button */}
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2">
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden cursor-pointer p-2">
             {mobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
