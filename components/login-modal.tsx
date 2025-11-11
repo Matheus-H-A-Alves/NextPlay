@@ -12,6 +12,7 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ open, onClose }: LoginModalProps) {
+  const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     email: "",
     senha: "",
@@ -24,6 +25,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true);
     const response = await fetch("https://next-stage-api-zeta.vercel.app/entrar", {
       method: "POST",
       headers: {
@@ -33,6 +35,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
     });
     const data = await response.json();
     if (response.ok) {
+      setLoading(false)
       alert(data.msg)
       console.log(data.data);
       setCookie("user", JSON.stringify(data.data), 7);
@@ -40,6 +43,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
       window.location.reload();
       onClose()
     } else {
+      setLoading(false)
       alert(data.errors.default)
     }
 
@@ -82,8 +86,8 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
             />
           </div>
 
-          <button type="submit" className="btn-primary w-full mt-6">
-            Entrar
+          <button type="submit" className={`btn-primary w-full mt-6 cursor-pointer ${loading ? "animate-pulse" : ""}`}>
+            {loading ? "Carregando..." : "Entrar"}
           </button>
 
           <p className="text-center text-[var(--muted-foreground)] text-sm">

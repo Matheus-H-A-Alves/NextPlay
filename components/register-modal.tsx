@@ -11,6 +11,7 @@ interface RegisterModalProps {
 }
 
 export default function RegisterModal({ open, onClose }: RegisterModalProps) {
+  const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -25,7 +26,8 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const response = await fetch("https://next-stage-api-zeta.vercel.app/cadastrar",{
+    setLoading(true);
+    const response = await fetch("https://next-stage-api-zeta.vercel.app/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -33,10 +35,16 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
       body: JSON.stringify(formData)
     });
     const data = await response.json();
-    alert(data.msg);
+    if (!response.ok) {
+      setLoading(false)
+      alert(data.msg);
 
-    setFormData({ nome: "", email: "", contato: "", senha: "" })
-    onClose()
+      setFormData({ nome: "", email: "", contato: "", senha: "" })
+      onClose()
+    } else {
+      setLoading(false)
+      alert(data.errors.default);
+    }
   }
 
   if (!open) return null
@@ -100,8 +108,8 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
             />
           </div>
 
-          <button type="submit" className="btn-primary w-full mt-6">
-            Criar Conta
+          <button type="submit" className={`btn-primary w-full mt-6 cursor-pointer ${loading ? "animate-pulse" : ""}`}>
+            {loading ? "Criando..." : "Criar Conta"}
           </button>
         </form>
       </div>
