@@ -54,18 +54,28 @@ export default function Header({ onRegister, onLogin, onContact }: HeaderProps) 
             <button onClick={onContact} className="hover:text-[var(--primary)] transition-colors">
               Contato
             </button>
-            <div className="flex flex-sol gap-1">
-              <p>
-                {user.nome ? `Olá, ${user.nome}` : 'Bem-vindo!'}
-              </p>
-              <p>
-                {user.email ? `(${user.email})` : ''}
-              </p>
-
-            </div>
-            <button onClick={onLogin} className="btn-primary text-sm">
-              Login
-            </button>
+            {user.nome.length > 0 ?
+              <div className="flex flex-row items-center justify-center gap-1 border border-[var(--primary)]/50 px-2 py-1 rounded-lg">
+                <div className="flex justify-center items-center size-10 border shadow-lg rounded-full">
+                  {user.nome.slice(0, 3)}
+                </div>
+                <div className="flex flex-col justify-center items-start leading-5 gap-1">
+                  <p>
+                    {user.nome ? `Olá, ${user.nome.toUpperCase()}` : 'Bem-vindo!'}
+                  </p>
+                  {user.email ? <p>({user.email}) </p> : ''}
+                </div>
+              </div>
+              :
+              null
+            }
+            {user.nome.length == 0 ?
+              <button onClick={onLogin} className="btn-primary text-sm">
+                Login
+              </button>
+              :
+              null
+            }
             <button className="cursor-pointer" onClick={() => {
               deleteCookie("user");
               setUser({
